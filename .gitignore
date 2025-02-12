@@ -4,5 +4,6 @@ crop.jpg
 video.mp4
 milvus_demo.db
 .milvus_demo.db.lock
-crop.jpg
-frames
+extraction*.json
+search*.json
+results*.json

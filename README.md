@@ -1,5 +1,15 @@
 # Image Search with Intel DLStreamer and PyMilvus
 
+![Pipeline Diagram](pipeline.drawio.png)
+
+## Running the environment
+
+```ps1
+docker pull docker.io/intel/dlstreamer:2024.2.2-ubuntu24
+docker compose build
+docker compose up -d
+```
+
 ## Running pipelines
 
 Prepare models and assets:
@@ -8,31 +18,41 @@ Prepare models and assets:
 bash init.sh
 ```
 
-Run insertion pipeline to populate the image search database:
+Run extraction pipeline to detect objects in video:
 
 ```bash
-bash insertion.sh
+bash extraction.sh
 ```
 
-Prepare a crop.jpg image for searching:
+Insert the detected objects into Milvus Vector Database:
 
 ```bash
-cp "./frames/$(ls frames | shuf -n 1)" crop.jpg
+python insertion.py
 ```
 
-Run search pipeline to get similar detected objects:
+Get embeddings for a target image (crop.jpg)
 
 ```bash
 bash search.sh
 ```
 
-Search results are logged to console.
+Query the Milvus Vector Database for the target image:
+
+```bash
+python query.py
+```
+
+Find the result frames in the video:
+
+```bash
+python seek.py
+```
 
 ## Development
 
 Format and lint code:
 
 ```bash
-pip install isort black pylint
-isort *.py; black *.py; pylint -E *.py
+pip install isort black pylint mdformat
+isort *.py; black *.py; pylint -E *.py; mdformat README.md
 ```

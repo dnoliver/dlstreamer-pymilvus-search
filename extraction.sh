@@ -6,6 +6,7 @@ INPUT_FILE="./video.mp4"
 
 gst-launch-1.0 filesrc location=$INPUT_FILE ! \
     decodebin ! \
+    queue ! \
     gvadetect \
         model=$DETECTION_MODEL.xml \
         inference-interval=7 \
@@ -17,7 +18,11 @@ gst-launch-1.0 filesrc location=$INPUT_FILE ! \
         model-proc=$CLASSIFICATION_MODEL.json \
         device=CPU ! \
     queue ! \
-    gvapython module=./insertion.py class=FrameInsertion function=process_frame ! \
+    gvametaconvert \
+        add-tensor-data=true ! \
+    gvametapublish \
+        method=file \
+        file-path=./extraction.json ! \
     gvawatermark ! \
     videoconvert ! \
     autovideosink

@@ -1,0 +1,19 @@
+services:
+  app:
+    build: .
+    image: dlstreamer-pymilvus-search
+    container_name: dlstreamer-pymilvus-search
+    environment:
+      DISPLAY: ":0"
+      WAYLAND_DISPLAY: "wayland-0"
+      XDG_RUNTIME_DIR: "/mnt/wslg/runtime-dir"
+      PULSE_SERVER: "/mnt/wslg/PulseServer"
+      GST_DEBUG: "1"
+    devices:
+      - "/dev/dxg:/dev/dxg"
+    command: tail -f /dev/null
+    volumes:
+      - "/run/desktop/mnt/host/wslg/.X11-unix:/tmp/.X11-unix"
+      - "/run/desktop/mnt/host/wslg:/mnt/wslg"
+      - "/usr/lib/wsl:/usr/lib/wsl"
+      - ".:/home/dlstreamer/app"
