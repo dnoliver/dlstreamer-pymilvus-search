@@ -13,9 +13,8 @@ gst-launch-1.0 filesrc location=$INPUT_FILE ! \
         inference-interval=1 \
         device=CPU ! \
     queue ! \
-    gvaclassify \
+    gvainference \
         model=$CLASSIFICATION_MODEL.xml \
-        model-proc=$CLASSIFICATION_MODEL.json \
         device=CPU ! \
     queue ! \
     gvametaconvert \

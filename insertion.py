@@ -15,7 +15,7 @@ MILVUS_TOKEN = ""
 COLLECTION_NAME = "dlstreamer_computed_embeddings"
 DEBUG = False
 MODEL_DIM = 1000
-LAYER_NAME = "classification"
+LAYER_NAME = "inference_layer_name:prob"
 
 # Create Milvus Client
 milvus_client = get_milvus_client(uri=MILVUS_URI, token=MILVUS_TOKEN)
@@ -54,7 +54,6 @@ with open("extraction.json", "r") as f:
                     print(f"Layer Name: {tensor["layer_name"]}")
                     print(f"Tensor Name: {tensor["name"]}")
                     print(f"Tensor Dims: {tensor["dims"]}")
-                    print(f"Tensor Label: {tensor["label"]}")
                     print("===== END =====")
                     print("")
 
@@ -67,7 +66,6 @@ with open("extraction.json", "r") as f:
                 insertions.append(
                     {
                         "vector": feature_vector,
-                        "label": tensor["label"],
                         "timestamp": message["timestamp"],
                     }
                 )

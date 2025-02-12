@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DETECTION_MODEL="./models/intel/person-vehicle-bike-detection-2004/FP16/person-vehicle-bike-detection-2004"
+DETECTION_MODEL="./models/intel/person-vehicle-bike-detection-2004/FP16-INT8/person-vehicle-bike-detection-2004"
 CLASSIFICATION_MODEL="./models/public/resnet-50-pytorch/FP16/resnet-50-pytorch"
 INPUT_FILE="./video.mp4"
 
@@ -13,9 +13,8 @@ gst-launch-1.0 filesrc location=$INPUT_FILE ! \
         threshold=0.4 \
         device=CPU ! \
     queue ! \
-    gvaclassify \
+    gvainference \
         model=$CLASSIFICATION_MODEL.xml \
-        model-proc=$CLASSIFICATION_MODEL.json \
         device=CPU ! \
     queue ! \
     gvametaconvert \
