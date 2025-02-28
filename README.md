@@ -56,3 +56,7 @@ Format and lint code:
 pip install isort black pylint mdformat
 isort *.py; black *.py; pylint -E *.py; mdformat README.md
 ```
+
+## Links
+
+- [Running GUI Applications in a Linux Docker Container](https://www.baeldung.com/linux/docker-container-gui-applications)

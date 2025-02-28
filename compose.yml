@@ -3,6 +3,8 @@ services:
     build: .
     image: dlstreamer-pymilvus-search
     container_name: dlstreamer-pymilvus-search
+    command: tail -f /dev/null
+    # This configuration works in WSL
     environment:
       DISPLAY: ":0"
       WAYLAND_DISPLAY: "wayland-0"
@@ -11,9 +13,21 @@ services:
       GST_DEBUG: "1"
     devices:
       - "/dev/dxg:/dev/dxg"
-    command: tail -f /dev/null
     volumes:
       - "/run/desktop/mnt/host/wslg/.X11-unix:/tmp/.X11-unix"
       - "/run/desktop/mnt/host/wslg:/mnt/wslg"
       - "/usr/lib/wsl:/usr/lib/wsl"
       - ".:/home/dlstreamer/app"
+    ## This configuration works in Linux
+    # environment:
+    #   DISPLAY: ":0"
+    #   WAYLAND_DISPLAY: "wayland-0"
+    #   GST_DEBUG: "1"
+    # group_add:
+    #  - "110"
+    # user: "1000:1000"
+    # devices:
+    #   - "/dev/dri:/dev/dri"
+    # volumes:
+    #   - "/tmp/.X11-unix:/tmp/.X11-unix"
+    #   - ".:/home/dlstreamer/app"

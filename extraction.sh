@@ -2,6 +2,7 @@
 
 DETECTION_MODEL="./models/intel/person-vehicle-bike-detection-2004/FP16-INT8/person-vehicle-bike-detection-2004"
 CLASSIFICATION_MODEL="./models/public/resnet-50-pytorch/FP16/resnet-50-pytorch"
+DEVICE="CPU"
 INPUT_FILE="./video.mp4"
 
 gst-launch-1.0 filesrc location=$INPUT_FILE ! \
@@ -11,11 +12,11 @@ gst-launch-1.0 filesrc location=$INPUT_FILE ! \
         model=$DETECTION_MODEL.xml \
         inference-interval=7 \
         threshold=0.4 \
-        device=CPU ! \
+        device=$DEVICE ! \
     queue ! \
     gvainference \
         model=$CLASSIFICATION_MODEL.xml \
-        device=CPU ! \
+        device=$DEVICE ! \
     queue ! \
     gvametaconvert \
         add-tensor-data=true ! \
