@@ -12,6 +12,12 @@ docker compose up -d
 
 ## Running pipelines
 
+Check the GStreamer setup:
+
+```bash
+gst-launch-1.0 videotestsrc ! videoconvert ! autovideosink
+```
+
 Prepare models and assets:
 
 ```bash
@@ -60,3 +66,5 @@ isort *.py; black *.py; pylint -E *.py; mdformat README.md
 ## Links
 
 - [Running GUI Applications in a Linux Docker Container](https://www.baeldung.com/linux/docker-container-gui-applications)
+- [GStreamer command-line cheat sheet](https://github.com/matthew1000/gstreamer-cheat-sheet)
+- [Intel Deep Learning Streamer](https://dlstreamer.github.io/)

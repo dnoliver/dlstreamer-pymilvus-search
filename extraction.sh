@@ -10,12 +10,14 @@ gst-launch-1.0 filesrc location=$INPUT_FILE ! \
     queue ! \
     gvadetect \
         model=$DETECTION_MODEL.xml \
+        model-instance-id=detect1 \
         inference-interval=7 \
         threshold=0.4 \
         device=$DEVICE ! \
     queue ! \
     gvainference \
         model=$CLASSIFICATION_MODEL.xml \
+        model-instance-id=infer1 \
         device=$DEVICE ! \
     queue ! \
     gvametaconvert \
