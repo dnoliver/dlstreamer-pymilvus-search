@@ -5,9 +5,10 @@
 ## Running the environment
 
 ```ps1
-docker pull docker.io/intel/dlstreamer:2024.2.2-ubuntu24
 docker compose build
 docker compose up -d
+sudo xhost +
+docker compose exec app bash
 ```
 
 ## Running pipelines
